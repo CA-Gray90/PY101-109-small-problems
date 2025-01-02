@@ -34,12 +34,12 @@ def print_odd(start, end):
         if i % 2 != 0:
             print(i)
 
-def check_number(num):
+def invalid_number(num):
     try:
         num = int(num)
     except ValueError:
-        return False
-    return True
+        return True
+    return False
 
 def try_again():
     while True:
@@ -57,23 +57,24 @@ display('Welcome to the odd number printer.')
 display('It will print all the odd numbers between two user chosen numbers')
 
 while True:
-    while True:
-        display('Enter the starting number:')
-        start_num = prompt()
-        if not check_number(start_num):
-            display('Please enter a whole number.')
-            continue
-        start_num = int(start_num)
-        break
+    index = 0
+    while index < 2:
+        if index == 0:
+            current = 'starting'
+        else:
+            current = 'ending'
 
-    while True:
-        display('Enter the ending number:')
-        end_num = prompt()
-        if not check_number(end_num):
+        display(f'Enter the {current} number:')
+        user_num = prompt()
+        if invalid_number(user_num):
             display('Please enter a whole number.')
             continue
-        end_num = int(end_num)
-        break
+
+        if index == 0:
+            start_num = int(user_num)
+        else:
+            end_num = int(user_num)
+        index += 1
 
     if start_num >= end_num:
         display('The numbers entered are not consecutive. Try again.')
