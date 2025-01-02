@@ -30,7 +30,9 @@ def prompt():
     return user_input
 
 def print_odd(start, end):
-    for i in range(start, end + 1):
+    step = -1 if start > end else 1
+
+    for i in range(start, end + step, step):
         if i % 2 != 0:
             print(i)
 
@@ -38,6 +40,7 @@ def invalid_number(num):
     try:
         num = int(num)
     except ValueError:
+        display('Invalid number, please enter a whole number.')
         return True
     return False
 
@@ -59,19 +62,17 @@ while True:
     for element in ['starting', 'ending']:
         display(f'Enter the {element} number:')
         user_num = prompt()
-
+        
         while invalid_number(user_num):
-            display('Invalid input. Please enter a whole number for the '
-                    f'{element} number:')
             user_num = prompt()
-
+        
         if element == 'starting':
             start_num = int(user_num)
         else:
             end_num = int(user_num)
 
-    if start_num >= end_num:
-        display('The numbers entered must be in ascending order. Try again.')
+    if start_num == end_num:
+        display('The numbers entered are the same. Try again.')
         continue
 
     display(f'The odd numbers between {start_num} and {end_num} are:')
