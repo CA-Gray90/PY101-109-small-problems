@@ -34,6 +34,13 @@ def print_odd(start, end):
         if i % 2 != 0:
             print(i)
 
+def check_number(num):
+    try:
+        num = int(num)
+    except ValueError:
+        return False
+    return True
+
 def try_again():
     while True:
         display('Do another range of numbers? y/n')
@@ -41,30 +48,41 @@ def try_again():
 
         if answer in ['y', 'Y']:
             return True
-        elif answer in ['n', 'N']:
+        if answer in ['n', 'N']:
             return False
-        else:
-            display('Incorrect input')
+        display('Incorrect input')
 
+# Program start
 display('Welcome to the odd number printer.')
 display('It will print all the odd numbers between two user chosen numbers')
 
 while True:
-    display('Enter the starting number:')
-    start_num = int(prompt())
+    while True:
+        display('Enter the starting number:')
+        start_num = prompt()
+        if not check_number(start_num):
+            display('Please enter a whole number.')
+            continue
+        start_num = int(start_num)
+        break
 
-    display('Enter the ending number:')
-    end_num = int(prompt())
+    while True:
+        display('Enter the ending number:')
+        end_num = prompt()
+        if not check_number(end_num):
+            display('Please enter a whole number.')
+            continue
+        end_num = int(end_num)
+        break
+
+    if start_num >= end_num:
+        display('The numbers entered are not consecutive. Try again.')
+        continue
 
     display(f'The odd numbers between {start_num} and {end_num} are:')
     print_odd(start_num, end_num)
 
     if try_again():
         continue
-    else:
-        display('Program end')
-        break
-
-# TODO:
-# Check if user inputs integers
-# Check if numbers are consecutive
+    display('Program end')
+    break
