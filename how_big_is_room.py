@@ -35,21 +35,19 @@ def check_metric(user_input):
             return 'metres'
         if user_input.lower() in ['f', 'feet']:
             return 'feet'
-        else:
-            display("Invalid metric entered, try again."
-                    "'m' for metres, 'f' for feet.")
-            user_input = prompt()
+        display("Invalid metric entered, try again."
+                "'m' for metres, 'f' for feet.")
+        user_input = prompt()
 
 def calculate_area(length, width, metric):
     area = length * width
     if metric == 'metres':
         area_metres = area
         area_feet = area * 10.7639
-        return (area_metres, area_feet)    
-    else:
-        area_metres = area / 10.7639
-        area_feet = area
-        return (area_feet, area_metres)
+        return (area_metres, area_feet)
+    area_metres = area / 10.7639
+    area_feet = area
+    return (area_feet, area_metres)
 
 def try_again(answer):
     while True:
@@ -106,6 +104,3 @@ while True:
         continue
     display('Program Terminated')
     break
-
-#TODO: Check is either value is zero and ask for input again for the
-# corresponding required input.
