@@ -18,19 +18,38 @@ def display(message):
 def prompt():
     return input('--> ')
 
-def sq_metres_to_feet(sq_metres):
-    return sq_metres * 10.7639
-
 def invalid_input(user_input):
     try:
         float(user_input)
     except ValueError:
-        print('Invalid input, please enter a number.')
+        display('Invalid input, please enter a number.')
+        return True
+    if float(user_input) == 0.0:
+        display("A measurement can't be 0! Try again.")
         return True
     return False
 
-def calculate_area(length, width):
-    return length * width
+def check_metric(user_input):
+    while True:
+        if user_input.lower() in ['m', 'metres', 'meters', 'metre', 'meter']:
+            return 'metres'
+        if user_input.lower() in ['f', 'feet']:
+            return 'feet'
+        else:
+            display("Invalid metric entered, try again."
+                    "'m' for metres, 'f' for feet.")
+            user_input = prompt()
+
+def calculate_area(length, width, metric):
+    area = length * width
+    if metric == 'metres':
+        area_metres = area
+        area_feet = area * 10.7639
+        return (area_metres, area_feet)    
+    else:
+        area_metres = area / 10.7639
+        area_feet = area
+        return (area_feet, area_metres)
 
 def try_again(answer):
     while True:
@@ -45,10 +64,20 @@ def try_again(answer):
 # Program Start #
 
 display('Welcome to the Room Area Calculator!')
-display('This program will calculate the area of a room in metres and feet.')
+display('This program will calculate the area of a room in metres or feet.')
 
 while True:
-    display('Please enter the length of the room in metres:')
+    display('Please specify if the measurement is in metres or feet: m/f')
+    user_metric = prompt()
+    user_metric = check_metric(user_metric)
+
+    if user_metric == 'metres':
+        other_metric = 'feet'
+    else:
+        other_metric = 'metres'
+
+    display(f'Please enter the length of the room in '
+            f'{user_metric}')
     room_length = prompt()
 
     while invalid_input(room_length):
@@ -56,7 +85,8 @@ while True:
 
     room_length = float(room_length)
 
-    display('Please enter the width of the room in metres:')
+    display('Please enter the width of the room in '
+            f'{user_metric}')
     room_width = prompt()
 
     while invalid_input(room_width):
@@ -64,11 +94,11 @@ while True:
 
     room_width = float(room_width)
 
-    area_metres = calculate_area(room_length, room_width)
-    area_feet = sq_metres_to_feet(area_metres)
+    area_metres_feet = calculate_area(room_length, room_width, user_metric)
 
-    display(f'The area of the room in square metres is: {area_metres}')
-    display(f'The area in square feet is: {area_feet}')
+    display(f'The area of the room in {user_metric} is: '
+            f'{area_metres_feet[0]:.2f}')
+    display(f'(or {area_metres_feet[1]:.2f} in {other_metric})')
 
     display('Do you wish to try again? y/n')
     user_answer = prompt()
