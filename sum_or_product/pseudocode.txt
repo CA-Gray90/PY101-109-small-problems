@@ -1,0 +1,22 @@
+START
+PRINT Welcome
+PRINT Explanation
+GET integer > than 0 from user
+SET integer to a variable
+GET operation from user, either 's' for sum or 'p' for product
+SUBPROCESS - GET result of operation either sum or product
+PRINT result
+END
+
+SUBPROCESS 's': Sum of all integers
+GET range of numbers from 1 to user_integer.
+GET sum of range of number (sum(range()))
+RETURN result
+
+SUBPROCESS 'p': product of all integers
+GET range of numbers from 2 to user_integer
+SET variable 'x' to 1
+FOR numbers in range:
+    GET number
+    SET (reassign) product of number and 'x' to 'x'
+RETURN 'x'
