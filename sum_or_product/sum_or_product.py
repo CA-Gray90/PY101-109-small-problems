@@ -2,7 +2,7 @@ def welcome():
     print('Welcome to the'
           ' "Sum or Product of Consecutive Integers" Calculator!')
     print()
-    
+
 def explanation():
     print('When prompted, please enter an integer greater than 0.\n'
           'You will then be asked whether you would like the result of the sum'
