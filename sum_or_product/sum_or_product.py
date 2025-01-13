@@ -1,5 +1,3 @@
-import pdb
-
 def welcome():
     print('Welcome to the'
           ' "Sum or Product of Consecutive Integers" Calculator!')
